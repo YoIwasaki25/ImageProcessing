@@ -2,10 +2,9 @@ import matplotlib.pyplot
 
 matplotlib.use("TkAgg")
 
+import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-
-import cv2
 from skimage import io
 
 
@@ -37,9 +36,10 @@ class imageProcessing:
         return gray
 
     def binarization(self, th):
-        _img = self.inputimg.copy()
-        _img = np.minimum(_img // th, 1) * 255
-        return _img.astype(np.uint8)
+        _gray = self.RGB2GRAY() * 255
+        _gray = _gray.astype(np.uint8)
+        _gray = np.minimum(_gray // th, 1) * 255
+        return _gray
 
 
 if __name__ == "__main__":
@@ -50,4 +50,5 @@ if __name__ == "__main__":
 
     ip = imageProcessing(img_orig)
     outImg = ip.binarization(127)
+    # outImg = ip.RGB2GRAY()
     ip.show(outImg)
